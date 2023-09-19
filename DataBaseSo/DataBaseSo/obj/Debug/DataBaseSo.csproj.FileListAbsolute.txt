@@ -1,0 +1,2 @@
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSo\obj\Debug\DataBaseSo.csproj.AssemblyReference.cache
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSo\obj\Debug\DataBaseSo.csproj.CoreCompileInputs.cache
