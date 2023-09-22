@@ -13,7 +13,11 @@ namespace BancoDeDadosSO
             if (!database.ContainsKey(chave))
             {
                 database[chave] = valor;
-                Console.WriteLine(valor);
+                Console.WriteLine($"Inserido: {chave} => {valor}");
+            }
+            else
+            {
+                Console.WriteLine("Chave já existe na base de dados.");
             }
         }
 
@@ -22,8 +26,12 @@ namespace BancoDeDadosSO
             if (database.ContainsKey(chave))
             {
                 database.Remove(chave);
-                Console.WriteLine(chave);
-            }                     
+                Console.WriteLine($"Removido: {chave}");
+            }
+            else
+            {
+                Console.WriteLine("Chave não encontrada na base de dados.");
+            }
         }
 
         public void Atualizar(string chave, object novoValor)
@@ -31,8 +39,12 @@ namespace BancoDeDadosSO
             if (database.ContainsKey(chave))
             {
                 database[chave] = novoValor;
-                Console.WriteLine(novoValor);
-            }          
+                Console.WriteLine($"Atualizado: {chave} => {novoValor}");
+            }
+            else
+            {
+                Console.WriteLine("Chave não encontrada na base de dados.");
+            }
         }
 
         public object Pesquisar(string chave)
@@ -42,7 +54,8 @@ namespace BancoDeDadosSO
                 return database[chave];
             }
             else
-            {             
+            {
+                Console.WriteLine("Chave não encontrada na base de dados.");
                 return null;
             }
         }
@@ -57,7 +70,7 @@ namespace BancoDeDadosSO
                 }
             }
 
-            Console.WriteLine(nomeArquivo);
+            Console.WriteLine($"Dados salvos em '{nomeArquivo}'.");
         }
 
         public void CarregarDeArquivo(string nomeArquivo)
@@ -81,11 +94,11 @@ namespace BancoDeDadosSO
                     }
                 }
 
-                Console.WriteLine(nomeArquivo);
+                Console.WriteLine($"Dados carregados de '{nomeArquivo}'.");
             }
             else
             {
-                Console.WriteLine(nomeArquivo);
+                Console.WriteLine($"O arquivo '{nomeArquivo}' não existe.");
             }
         }
     }

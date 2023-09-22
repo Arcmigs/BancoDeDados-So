@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataBaseSo
 {
-    class ProgramClient
+     public static class ProgramClient
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            // Criar uma classe KeyValueDatabase e instanciar
+            KeyValueDatabase db = new KeyValueDatabase();
             bool continuar = true;
 
             Console.WriteLine("Bem-vindo ao Programa Cliente do Banco de Dados de Chave-Valor!");
@@ -18,75 +18,69 @@ namespace DataBaseSo
             while (continuar)
             {
                 Console.WriteLine("\nEscolha uma opção:");
-                Console.WriteLine("1 - Inserir");
-                Console.WriteLine("2 - Remover");
-                Console.WriteLine("3 - Atualizar");
-                Console.WriteLine("4 - Pesquisar");
-                Console.WriteLine("5 - Salvar para arquivo");
-                Console.WriteLine("6 - Carregar de arquivo");
-                Console.WriteLine("7 - Sair");
+                Console.WriteLine("--insert - Inserir");
+                Console.WriteLine("--remove - Remover");
+                Console.WriteLine("--update - Atualizar");
+                Console.WriteLine("--search - Pesquisar");
+                Console.WriteLine("--save - Salvar para arquivo");
+                Console.WriteLine("--load - Carregar de arquivo");
+                Console.WriteLine("--exit - Sair");
 
-                int opcao;
-                if (int.TryParse(Console.ReadLine(), out opcao))
+                string opcao = Console.ReadLine();
+
+                switch (opcao)
                 {
-                    switch (opcao)
-                    {
-                        case 1:
-                            Console.Write("Digite a chave: ");
-                            string chaveInserir = Console.ReadLine();
-                            Console.Write("Digite o valor: ");
-                            object valorInserir = Console.ReadLine();
-                            //passar os parâmetros pegos a cima
-                            break;
+                    case "--insert":
+                        Console.Write("Digite a chave: ");
+                        string chaveInserir = Console.ReadLine();
+                        Console.Write("Digite o valor: ");
+                        object valorInserir = Console.ReadLine();
+                        db.Inserir(chaveInserir, valorInserir);
+                        break;
 
-                        case 2:
-                            Console.Write("Digite a chave: ");
-                            string chaveRemover = Console.ReadLine();
-                            //passar os parâmetros pegos a cima
-                            break;
+                    case "--remove":
+                        Console.Write("Digite a chave: ");
+                        string chaveRemover = Console.ReadLine();
+                        db.Remover(chaveRemover);
+                        break;
 
-                        case 3:
-                            Console.Write("Digite a chave: ");
-                            string chaveAtualizar = Console.ReadLine();
-                            Console.Write("Digite o novo valor: ");
-                            object novoValor = Console.ReadLine();
-                            //passar os parâmetros pegos a cima
-                            break;
+                    case "--update":
+                        Console.Write("Digite a chave: ");
+                        string chaveAtualizar = Console.ReadLine();
+                        Console.Write("Digite o novo valor: ");
+                        object novoValor = Console.ReadLine();
+                        db.Atualizar(chaveAtualizar, novoValor);
+                        break;
 
-                        case 4:
-                            Console.Write("Digite a chave: ");
-                            string chavePesquisar = Console.ReadLine();
-                            /*object resultado = passar os parâmetros pegos a cima
-                            if (resultado != null)
-                            {
-                                Console.WriteLine($"Valor: {resultado}");
-                            }*/
-                            break;
+                    case "--search":
+                        Console.Write("Digite a chave: ");
+                        string chavePesquisar = Console.ReadLine();
+                        object resultado = db.Pesquisar(chavePesquisar);
+                        if (resultado != null)
+                        {
+                            Console.WriteLine($"Valor: {resultado}");
+                        }
+                        break;
 
-                        case 5:
-                            Console.Write("Digite o nome do arquivo para salvar: ");
-                            string nomeArquivoSalvar = Console.ReadLine();
-                            //passar os parâmetros pegos a cima
-                            break;
+                    case "--save":
+                        Console.Write("Digite o nome do arquivo para salvar: ");
+                        string nomeArquivoSalvar = Console.ReadLine();
+                        db.SalvarParaArquivo(nomeArquivoSalvar);
+                        break;
 
-                        case 6:
-                            Console.Write("Digite o nome do arquivo para carregar: ");
-                            string nomeArquivoCarregar = Console.ReadLine();
-                            //passar os parâmetros pegos a cima
-                            break;
+                    case "--load":
+                        Console.Write("Digite o nome do arquivo para carregar: ");
+                        string nomeArquivoCarregar = Console.ReadLine();
+                        db.CarregarDeArquivo(nomeArquivoCarregar);
+                        break;
 
-                        case 7:
-                            continuar = false;
-                            break;
+                    case "--exit":
+                        continuar = false;
+                        break;
 
-                        default:
-                            Console.WriteLine("Opção inválida. Escolha novamente.");
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Opção inválida. Escolha novamente.");
+                    default:
+                        Console.WriteLine("Opção inválida. Escolha novamente.");
+                        break;
                 }
             }
 
