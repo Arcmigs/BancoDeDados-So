@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataBaseSo
 {
-     public static class ProgramClient
+    public static class ProgramClient
     {
         public static void Main(string[] args)
         {
@@ -17,61 +17,63 @@ namespace DataBaseSo
 
             while (continuar)
             {
-                Console.WriteLine("\nEscolha uma opção:");
-                Console.WriteLine("--insert - Inserir");
-                Console.WriteLine("--remove - Remover");
-                Console.WriteLine("--update - Atualizar");
-                Console.WriteLine("--search - Pesquisar");
-                Console.WriteLine("--save - Salvar para arquivo");
-                Console.WriteLine("--load - Carregar de arquivo");
-                Console.WriteLine("--exit - Sair");
+                string input = Console.ReadLine();
+                string[] opcaoArgs = input.Split(' ');
 
-                string opcao = Console.ReadLine();
-
-                switch (opcao)
+                switch (opcaoArgs[0])
                 {
                     case "--insert":
-                        Console.Write("Digite a chave: ");
-                        string chaveInserir = Console.ReadLine();
-                        Console.Write("Digite o valor: ");
-                        object valorInserir = Console.ReadLine();
-                        db.Inserir(chaveInserir, valorInserir);
+                        if (opcaoArgs.Length == 3)
+                        {
+                            string chaveInserir = opcaoArgs[1];
+                            object valorInserir = opcaoArgs[2];
+                            db.Inserir(chaveInserir, valorInserir);
+                        }
                         break;
 
                     case "--remove":
-                        Console.Write("Digite a chave: ");
-                        string chaveRemover = Console.ReadLine();
-                        db.Remover(chaveRemover);
+                        if (opcaoArgs.Length == 2)
+                        {
+                            string chaveRemover = opcaoArgs[1];
+                            db.Remover(chaveRemover);
+                        }
                         break;
 
                     case "--update":
-                        Console.Write("Digite a chave: ");
-                        string chaveAtualizar = Console.ReadLine();
-                        Console.Write("Digite o novo valor: ");
-                        object novoValor = Console.ReadLine();
-                        db.Atualizar(chaveAtualizar, novoValor);
+                        if (opcaoArgs.Length == 3)
+                        {
+                            string chaveAtualizar = opcaoArgs[1];
+                            object novoValor = opcaoArgs[2];
+                            db.Atualizar(chaveAtualizar, novoValor);
+                        }
                         break;
 
                     case "--search":
-                        Console.Write("Digite a chave: ");
-                        string chavePesquisar = Console.ReadLine();
-                        object resultado = db.Pesquisar(chavePesquisar);
-                        if (resultado != null)
+                        if (opcaoArgs.Length == 2)
                         {
-                            Console.WriteLine($"Valor: {resultado}");
+                            string chavePesquisar = opcaoArgs[1];
+                            object resultado = db.Pesquisar(chavePesquisar);
+                            if (resultado != null)
+                            {
+                                Console.WriteLine($"Valor: {resultado}");
+                            }
                         }
                         break;
 
                     case "--save":
-                        Console.Write("Digite o nome do arquivo para salvar: ");
-                        string nomeArquivoSalvar = Console.ReadLine();
-                        db.SalvarParaArquivo(nomeArquivoSalvar);
+                        if (opcaoArgs.Length == 2)
+                        {
+                            string nomeArquivoSalvar = opcaoArgs[1];
+                            db.SalvarParaArquivo(nomeArquivoSalvar);
+                        }
                         break;
 
                     case "--load":
-                        Console.Write("Digite o nome do arquivo para carregar: ");
-                        string nomeArquivoCarregar = Console.ReadLine();
-                        db.CarregarDeArquivo(nomeArquivoCarregar);
+                        if (opcaoArgs.Length == 2)
+                        {
+                            string nomeArquivoCarregar = opcaoArgs[1];
+                            db.CarregarDeArquivo(nomeArquivoCarregar);
+                        }
                         break;
 
                     case "--exit":
