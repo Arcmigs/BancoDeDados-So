@@ -4,3 +4,4 @@ C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSo\bi
 C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSo\bin\Debug\DataBaseSo.pdb
 C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSo\obj\Debug\DataBaseSo.exe
 C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSo\obj\Debug\DataBaseSo.pdb
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSo\obj\Debug\DataBaseSo.csproj.AssemblyReference.cache
