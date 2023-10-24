@@ -1,92 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataBaseSo
+namespace DataBaseSO
 {
-    public static class ProgramClient
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            KeyValueDatabase db = new KeyValueDatabase();
-            bool continuar = true;
-
-            Console.WriteLine("Bem-vindo ao Programa Cliente do Banco de Dados de Chave-Valor!");
-
-            while (continuar)
+            if (args.Length == 0)
             {
-                string input = Console.ReadLine();
-                string[] opcaoArgs = input.Split(' ');
-
-                switch (opcaoArgs[0])
-                {
-                    case "--insert":
-                        if (opcaoArgs.Length == 3)
-                        {
-                            string chaveInserir = opcaoArgs[1];
-                            object valorInserir = opcaoArgs[2];
-                            db.Inserir(chaveInserir, valorInserir);
-                        }
-                        break;
-
-                    case "--remove":
-                        if (opcaoArgs.Length == 2)
-                        {
-                            string chaveRemover = opcaoArgs[1];
-                            db.Remover(chaveRemover);
-                        }
-                        break;
-
-                    case "--update":
-                        if (opcaoArgs.Length == 3)
-                        {
-                            string chaveAtualizar = opcaoArgs[1];
-                            object novoValor = opcaoArgs[2];
-                            db.Atualizar(chaveAtualizar, novoValor);
-                        }
-                        break;
-
-                    case "--search":
-                        if (opcaoArgs.Length == 2)
-                        {
-                            string chavePesquisar = opcaoArgs[1];
-                            object resultado = db.Pesquisar(chavePesquisar);
-                            if (resultado != null)
-                            {
-                                Console.WriteLine($"Valor: {resultado}");
-                            }
-                        }
-                        break;
-
-                    case "--save":
-                        if (opcaoArgs.Length == 2)
-                        {
-                            string nomeArquivoSalvar = opcaoArgs[1];
-                            db.SalvarParaArquivo(nomeArquivoSalvar);
-                        }
-                        break;
-
-                    case "--load":
-                        if (opcaoArgs.Length == 2)
-                        {
-                            string nomeArquivoCarregar = opcaoArgs[1];
-                            db.CarregarDeArquivo(nomeArquivoCarregar);
-                        }
-                        break;
-
-                    case "--exit":
-                        continuar = false;
-                        break;
-
-                    default:
-                        Console.WriteLine("Opção inválida. Escolha novamente.");
-                        break;
-                }
+                Console.WriteLine("Usage: KeyValueClient <databaseFilePath> <command> [args]");
+                return;
             }
 
-            Console.WriteLine("Programa encerrado.");
+            string databaseFilePath = args[0];
+            var database = new KeyValueDatabase(databaseFilePath);
+
+            if (args.Length < 2)
+            {
+                Console.WriteLine("Invalid command. Use '--insert', '--remove', '--update', or '--search'.");
+                return;
+            }
+
+            string command = args[1];
+
+            switch (command)
+            {
+                case "--insert":
+                    if (args.Length < 4)
+                    {
+                        Console.WriteLine("Usage: insert <key> <value>");
+                        return;
+                    }
+                    int key = int.Parse(args[2]);
+                    string value = args[3];
+                    database.Insert(key, value);
+                    Console.WriteLine("inserted");
+                    break;
+
+                case "--remove":
+                    if (args.Length < 3)
+                    {
+                        Console.WriteLine("Usage: remove <key>");
+                        return;
+                    }
+                    key = int.Parse(args[2]);
+                    database.Remove(key);
+                    Console.WriteLine("removed");
+                    break;
+
+                case "--update":
+                    if (args.Length < 4)
+                    {
+                        Console.WriteLine("Usage: update <key> <new-value>");
+                        return;
+                    }
+                    key = int.Parse(args[2]);
+                    string newValue = args[3];
+                    database.Update(key, newValue);
+                    Console.WriteLine("updated");
+                    break;
+
+                case "--search":
+                    if (args.Length < 3)
+                    {
+                        Console.WriteLine("Usage: search <key>");
+                        return;
+                    }
+                    key = int.Parse(args[2]);
+                    string result = database.Search(key);
+                    Console.WriteLine(result);
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid command. Use 'insert', 'remove', 'update', or 'search'.");
+                    break;
+            }
         }
     }
 }

@@ -1,0 +1,14 @@
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\bin\Debug\net6.0\DataBaseSO.exe
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\bin\Debug\net6.0\DataBaseSO.deps.json
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\bin\Debug\net6.0\DataBaseSO.runtimeconfig.json
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\bin\Debug\net6.0\DataBaseSO.dll
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\bin\Debug\net6.0\DataBaseSO.pdb
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.AssemblyInfoInputs.cache
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.AssemblyInfo.cs
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.csproj.CoreCompileInputs.cache
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.dll
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\refint\DataBaseSO.dll
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.pdb
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.genruntimeconfig.cache
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\ref\DataBaseSO.dll

@@ -1,105 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
-namespace DataBaseSo
+namespace DataBaseSO
 {
     public class KeyValueDatabase
     {
-        private Dictionary<string, object> database = new Dictionary<string, object>();
+        private List<KeyValueRecord> records;
+        private string databaseFilePath;
 
-        public void Inserir(string chave, object valor)
+        public KeyValueDatabase(string filePath)
         {
-            if (!database.ContainsKey(chave))
+            databaseFilePath = filePath;
+            LoadDataFromDisk();
+        }
+
+        public void Insert(int key, string value)
+        {
+            records.Add(new KeyValueRecord { Key = key, Value = value });
+            SaveDataToDisk();
+        }
+
+        public void Remove(int key)
+        {
+            records.RemoveAll(r => r.Key == key);
+            SaveDataToDisk();
+        }
+
+        public void Update(int key, string newValue)
+        {
+            var record = records.FirstOrDefault(r => r.Key == key);
+            if (record != null)
             {
-                database[chave] = valor;
-                Console.WriteLine($"Inserido: {chave} => {valor}");
-            }
-            else
-            {
-                Console.WriteLine("Chave já existe na base de dados.");
+                record.Value = newValue;
+                SaveDataToDisk();
             }
         }
 
-        public void Remover(string chave)
+        public string Search(int key)
         {
-            if (database.ContainsKey(chave))
-            {
-                database.Remove(chave);
-                Console.WriteLine($"Removido: {chave}");
-            }
-            else
-            {
-                Console.WriteLine("Chave não encontrada na base de dados.");
-            }
+            var record = records.FirstOrDefault(r => r.Key == key);
+            return record != null ? record.Value : "not found";
         }
 
-        public void Atualizar(string chave, object novoValor)
+        private void LoadDataFromDisk()
         {
-            if (database.ContainsKey(chave))
+            if (File.Exists(databaseFilePath))
             {
-                database[chave] = novoValor;
-                Console.WriteLine($"Atualizado: {chave} => {novoValor}");
-            }
-            else
-            {
-                Console.WriteLine("Chave não encontrada na base de dados.");
-            }
-        }
-
-        public object Pesquisar(string chave)
-        {
-            if (database.ContainsKey(chave))
-            {
-                return database[chave];
-            }
-            else
-            {
-                Console.WriteLine("Chave não encontrada na base de dados.");
-                return null;
-            }
-        }
-
-        public void SalvarParaArquivo(string nomeArquivo)
-        {
-            using (StreamWriter writer = new StreamWriter(nomeArquivo))
-            {
-                foreach (var kvp in database)
+                string[] lines = File.ReadAllLines(databaseFilePath);
+                records = lines.Select(line =>
                 {
-                    writer.WriteLine($"{kvp.Key}:{kvp.Value}");
-                }
-            }
-
-            Console.WriteLine($"Dados salvos em '{nomeArquivo}'.");
-        }
-
-        public void CarregarDeArquivo(string nomeArquivo)
-        {
-            if (File.Exists(nomeArquivo))
-            {
-                database.Clear();
-
-                using (StreamReader reader = new StreamReader(nomeArquivo))
-                {
-                    string linha;
-                    while ((linha = reader.ReadLine()) != null)
+                    var parts = line.Split(',');
+                    return new KeyValueRecord
                     {
-                        string[] partes = linha.Split(':');
-                        if (partes.Length == 2)
-                        {
-                            string chave = partes[0];
-                            string valor = partes[1];
-                            database[chave] = valor;
-                        }
-                    }
-                }
-
-                Console.WriteLine($"Dados carregados de '{nomeArquivo}'.");
+                        Key = int.Parse(parts[0]),
+                        Value = parts[1]
+                    };
+                }).ToList();
             }
             else
             {
-                Console.WriteLine($"O arquivo '{nomeArquivo}' não existe.");
+                records = new List<KeyValueRecord>();
             }
+        }
+
+        private void SaveDataToDisk()
+        {
+            string[] lines = records.Select(record => $"{record.Key},{record.Value}").ToArray();
+            File.WriteAllLines(databaseFilePath, lines);
         }
     }
 }
