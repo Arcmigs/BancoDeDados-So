@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseSo;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -70,5 +71,30 @@ namespace DataBaseSO
             string[] lines = records.Select(record => $"{record.Key},{record.Value}").ToArray();
             File.WriteAllLines(databaseFilePath, lines);
         }
+
+        public Message HandleRequest(Message request)
+        {
+            var response = new Message();
+            switch (request.Op)
+            {
+                case Operation.Insert:
+                    Insert(request.Key, request.Value);
+                    response.Value = "inserted";
+                    break;
+                case Operation.Get:
+                    response.Value = Search(request.Key);
+                    break;
+                case Operation.Update:
+                    Update(request.Key, request.Value);
+                    response.Value = "updated";
+                    break;
+                case Operation.Remove:
+                    Remove(request.Key);
+                    response.Value = "removed";
+                    break;
+            }
+            return response;
+        }
     }
+
 }

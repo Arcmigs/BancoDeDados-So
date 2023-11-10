@@ -12,3 +12,6 @@ C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\ob
 C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.pdb
 C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.genruntimeconfig.cache
 C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\ref\DataBaseSO.dll
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.csproj.AssemblyReference.cache
+C:\Users\Miguel Felipe\Documents\GitHub\BancoDeDados-So\DataBaseSo\DataBaseSO\obj\Debug\net6.0\DataBaseSO.csproj.CopyComplete

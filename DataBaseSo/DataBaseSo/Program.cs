@@ -1,79 +1,55 @@
-﻿using System;
+﻿using DatabaseSo;
+using System.IO.Pipes;
+using Newtonsoft.Json;
 
 namespace DataBaseSO
 {
-    class Program
+    class Client
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+            using (var client = new NamedPipeClientStream("my_pipe"))
             {
-                Console.WriteLine("Usage: KeyValueClient <databaseFilePath> <command> [args]");
-                return;
-            }
+                client.Connect();
 
-            string databaseFilePath = args[0];
-            var database = new KeyValueDatabase(databaseFilePath);
-
-            if (args.Length < 2)
-            {
-                Console.WriteLine("Invalid command. Use '--insert', '--remove', '--update', or '--search'.");
-                return;
-            }
-
-            string command = args[1];
-
-            switch (command)
-            {
-                case "--insert":
-                    if (args.Length < 4)
+                using (var reader = new StreamReader(client))
+                using (var writer = new StreamWriter(client))
+                {
+                    var message = new Message();
+                    switch (args[0])
                     {
-                        Console.WriteLine("Usage: insert <key> <value>");
-                        return;
+                        case "--insert":
+                            message.Op = Operation.Insert;
+                            message.Key = int.Parse(args[1]);
+                            message.Value = args[2];
+                            break;
+                        case "--get":
+                            message.Op = Operation.Get;
+                            message.Key = int.Parse(args[1]);
+                            break;
+                        case "--update":
+                            message.Op = Operation.Update;
+                            message.Key = int.Parse(args[1]);
+                            message.Value = args[2];
+                            break;
+                        case "--remove":
+                            message.Op = Operation.Remove;
+                            message.Key = int.Parse(args[1]);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid command. Use '--insert', '--get', '--update', or '--remove'.");
+                            return;
                     }
-                    int key = int.Parse(args[2]);
-                    string value = args[3];
-                    database.Insert(key, value);
-                    Console.WriteLine("inserted");
-                    break;
 
-                case "--remove":
-                    if (args.Length < 3)
-                    {
-                        Console.WriteLine("Usage: remove <key>");
-                        return;
-                    }
-                    key = int.Parse(args[2]);
-                    database.Remove(key);
-                    Console.WriteLine("removed");
-                    break;
+                    string requestJson = JsonConvert.SerializeObject(message);
+                    writer.WriteLine(requestJson);
+                    writer.Flush();
 
-                case "--update":
-                    if (args.Length < 4)
-                    {
-                        Console.WriteLine("Usage: update <key> <new-value>");
-                        return;
-                    }
-                    key = int.Parse(args[2]);
-                    string newValue = args[3];
-                    database.Update(key, newValue);
-                    Console.WriteLine("updated");
-                    break;
+                    string responseJson = reader.ReadLine();
+                    var responseMessage = JsonConvert.DeserializeObject<Message>(responseJson);
 
-                case "--search":
-                    if (args.Length < 3)
-                    {
-                        Console.WriteLine("Usage: search <key>");
-                        return;
-                    }
-                    key = int.Parse(args[2]);
-                    string result = database.Search(key);
-                    Console.WriteLine(result);
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid command. Use 'insert', 'remove', 'update', or 'search'.");
-                    break;
+                    Console.WriteLine(responseMessage.Value);
+                }
             }
         }
     }
