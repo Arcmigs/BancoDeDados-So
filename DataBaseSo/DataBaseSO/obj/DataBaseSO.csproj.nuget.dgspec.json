@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\DataBaseSo\\DataBaseSO\\DataBaseSO.csproj": {}
+    "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\DataBaseSo\\DataBaseSO\\DataBaseSo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\DataBaseSo\\DataBaseSO\\DataBaseSO.csproj": {
+    "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\DataBaseSo\\DataBaseSO\\DataBaseSo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\DataBaseSo\\DataBaseSO\\DataBaseSO.csproj",
-        "projectName": "DataBaseSO",
-        "projectPath": "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\DataBaseSo\\DataBaseSO\\DataBaseSO.csproj",
+        "projectUniqueName": "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\DataBaseSo\\DataBaseSO\\DataBaseSo.csproj",
+        "projectName": "DataBaseSo",
+        "projectPath": "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\DataBaseSo\\DataBaseSO\\DataBaseSo.csproj",
         "packagesPath": "C:\\Users\\Miguel Felipe\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\DataBaseSo\\DataBaseSO\\obj\\",
         "projectStyle": "PackageReference",

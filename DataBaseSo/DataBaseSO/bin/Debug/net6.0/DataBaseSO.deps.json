@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "DataBaseSO/1.0.0": {
+      "DataBaseSo/1.0.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
-          "DataBaseSO.dll": {}
+          "DataBaseSo.dll": {}
         }
       },
       "Newtonsoft.Json/13.0.3": {
@@ -25,7 +25,7 @@
     }
   },
   "libraries": {
-    "DataBaseSO/1.0.0": {
+    "DataBaseSo/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
