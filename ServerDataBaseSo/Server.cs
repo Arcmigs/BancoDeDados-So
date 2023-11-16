@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.Pipes;
 using Newtonsoft.Json;
-using System.Threading;
 
 namespace ServerDatabaseSo
 {
@@ -11,17 +9,16 @@ namespace ServerDatabaseSo
         static void Main(string[] args)
         {
             var database = new KeyValueDatabase(args[0]);
-
             while (true)
             {
-                var server = new NamedPipeServerStream("my_pipe", PipeDirection.InOut, NamedPipeServerStream.MaxAllowedServerInstances);
-                server.WaitForConnection();
-
-                ThreadPool.QueueUserWorkItem(_ =>
+                using (var server = new NamedPipeServerStream("my_pipe"))
                 {
+                    server.WaitForConnection();
+
                     using (var reader = new StreamReader(server))
                     using (var writer = new StreamWriter(server))
                     {
+
                         string requestJson = reader.ReadLine();
                         var requestMessage = JsonConvert.DeserializeObject<Message>(requestJson);
 
@@ -30,10 +27,9 @@ namespace ServerDatabaseSo
 
                         writer.WriteLine(responseJson);
                         writer.Flush();
-                    }
 
-                    server.Close();
-                });
+                    }
+                }
             }
         }
     }

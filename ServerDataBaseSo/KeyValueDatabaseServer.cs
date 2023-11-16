@@ -74,26 +74,62 @@ namespace ServerDatabaseSo
         public Message HandleRequest(Message request)
         {
             var response = new Message();
+            Thread thread = null;
+
             switch (request.Op)
             {
                 case Operation.Insert:
-                    Insert(request.Key, request.Value);
-                    response.Value = "inserted";
+                    thread = new Thread(() =>
+                    {
+                        lock (this)
+                        {
+                            Insert(request.Key, request.Value);
+                            response.Value = "inserted";
+                        }
+                    });
                     break;
                 case Operation.Get:
-                    response.Value = Search(request.Key);
+                    thread = new Thread(() =>
+                    {
+                        lock (this)
+                        {
+                            response.Value = Search(request.Key);
+                        }
+                    });
                     break;
                 case Operation.Update:
-                    Update(request.Key, request.Value);
-                    response.Value = "updated";
+                    thread = new Thread(() =>
+                    {
+                        lock (this)
+                        {
+                            Update(request.Key, request.Value);
+                            response.Value = "updated";
+                        }
+                    });
                     break;
                 case Operation.Remove:
-                    Remove(request.Key);
-                    response.Value = "removed";
+                    thread = new Thread(() =>
+                    {
+                        lock (this)
+                        {
+                            Remove(request.Key);
+                            response.Value = "removed";
+                        }
+                    });
                     break;
             }
+
+            if (thread != null)
+            {
+                thread.Start();
+                thread.Join();  // Espera a thread terminar
+            }
+
             return response;
         }
+    }
+
+}
     }
 
 }
