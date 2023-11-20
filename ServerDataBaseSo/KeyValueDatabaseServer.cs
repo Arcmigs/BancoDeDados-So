@@ -18,30 +18,79 @@ namespace ServerDatabaseSo
 
         public void Insert(int key, string value)
         {
-            records.Add(new KeyValueRecord { Key = key, Value = value });
-            SaveDataToDisk();
+            try
+            {
+                if (records.Any(r => r.Key == key))
+                {
+                    Console.WriteLine("Erro: Chave já existe. Não é possível inserir duplicatas.");
+                    return;
+                }
+
+                records.Add(new KeyValueRecord { Key = key, Value = value });
+                SaveDataToDisk();
+                Console.WriteLine($"Inserido: {key} => {value}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro durante a inserção: {ex.Message}");
+            }
         }
 
         public void Remove(int key)
         {
-            records.RemoveAll(r => r.Key == key);
-            SaveDataToDisk();
+            try
+            {
+                var removedRecord = records.RemoveAll(r => r.Key == key);
+                if (removedRecord > 0)
+                {
+                    SaveDataToDisk();
+                    Console.WriteLine($"Removido: {key}");
+                }
+                else
+                {
+                    Console.WriteLine("Erro: Chave não encontrada. Não é possível remover.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro durante a remoção: {ex.Message}");
+            }
         }
 
         public void Update(int key, string newValue)
         {
-            var record = records.FirstOrDefault(r => r.Key == key);
-            if (record != null)
+            try
             {
-                record.Value = newValue;
-                SaveDataToDisk();
+                var record = records.FirstOrDefault(r => r.Key == key);
+                if (record != null)
+                {
+                    record.Value = newValue;
+                    SaveDataToDisk();
+                    Console.WriteLine($"Atualizado: {key} => {newValue}");
+                }
+                else
+                {
+                    Console.WriteLine("Erro: Chave não encontrada. Não é possível atualizar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro durante a atualização: {ex.Message}");
             }
         }
 
         public string Search(int key)
         {
-            var record = records.FirstOrDefault(r => r.Key == key);
-            return record != null ? record.Value : "not found";
+            try
+            {
+                var record = records.FirstOrDefault(r => r.Key == key);
+                return record != null ? record.Value : "not found";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro durante a pesquisa: {ex.Message}");
+                return "not found";
+            }
         }
 
         private void LoadDataFromDisk()
