@@ -10,5 +10,7 @@ namespace DataBaseSO
     {
         public int Key { get; set; }
         public string Value { get; set; }
+        public DateTime LastAccessed { get; set; }
+
     }
 }

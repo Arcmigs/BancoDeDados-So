@@ -10,6 +10,9 @@ namespace DataBaseSO
     {
         private List<KeyValueRecord> records;
         private string databaseFilePath;
+        //-------------------------------
+        private int maxRecords = 100;
+        //-------------------------------
 
         public KeyValueDatabase(string filePath)
         {
@@ -26,8 +29,17 @@ namespace DataBaseSO
                     Console.WriteLine("Erro: Chave já existe. Não é possível inserir duplicatas.");
                     return;
                 }
-
-                records.Add(new KeyValueRecord { Key = key, Value = value });
+                //-------------------------------
+                if (records.Count >= maxRecords)
+                {
+                    // Encontre o registro mais antigo e remova-o
+                    var oldestRecord = records.OrderBy(r => r.LastAccessed).First();
+                    records.Remove(oldestRecord);
+                }
+                //-------------------------------
+                records.Add(new KeyValueRecord { Key = key, Value = value, LastAccessed = DateTime.Now });
+                //-------------------------------
+                //records.Add(new KeyValueRecord { Key = key, Value = value });
                 SaveDataToDisk();
                 Console.WriteLine($"Inserido: {key} => {value}");
             }
@@ -66,6 +78,9 @@ namespace DataBaseSO
                 if (record != null)
                 {
                     record.Value = newValue;
+                    //-------------------------------
+                    record.LastAccessed = DateTime.Now;
+                    //-------------------------------
                     SaveDataToDisk();
                     Console.WriteLine($"Atualizado: {key} => {newValue}");
                 }
@@ -85,7 +100,18 @@ namespace DataBaseSO
             try
             {
                 var record = records.FirstOrDefault(r => r.Key == key);
-                return record != null ? record.Value : "not found";
+                //-------------------------------
+                if (record != null)
+                {
+                    record.LastAccessed = DateTime.Now;
+                    return record.Value;
+                }
+                else
+                {
+                    return "not found";
+                }
+                //-------------------------------
+                //return record != null ? record.Value : "not found";
             }
             catch (Exception ex)
             {
@@ -105,7 +131,8 @@ namespace DataBaseSO
                     return new KeyValueRecord
                     {
                         Key = int.Parse(parts[0]),
-                        Value = parts[1]
+                        Value = parts[1],
+                        LastAccessed = DateTime.Now
                     };
                 }).ToList();
             }
@@ -124,24 +151,73 @@ namespace DataBaseSO
         public Message HandleRequest(Message request)
         {
             var response = new Message();
+            //-------------------------------
+            Thread thread = null;
+            //-------------------------------
             switch (request.Op)
             {
                 case Operation.Insert:
-                    Insert(request.Key, request.Value);
-                    response.Value = "inserted";
+                    //-------------------------------
+                    thread = new Thread(() =>
+                    {
+                        lock (this)
+                        {
+                            Insert(request.Key, request.Value);
+                            response.Value = "inserted";
+                        }
+                    });
+                    //-------------------------------
+                    /*Insert(request.Key, request.Value);
+                    response.Value = "inserted";*/
                     break;
                 case Operation.Get:
-                    response.Value = Search(request.Key);
+                    //-------------------------------
+                    thread = new Thread(() =>
+                    {
+                        lock (this)
+                        {
+                            response.Value = Search(request.Key);
+                        }
+                    });
+                    //-------------------------------
+                    /*response.Value = Search(request.Key);*/
                     break;
                 case Operation.Update:
-                    Update(request.Key, request.Value);
-                    response.Value = "updated";
+                    //-------------------------------
+                    thread = new Thread(() =>
+                    {
+                        lock (this)
+                        {
+                            Update(request.Key, request.Value);
+                            response.Value = "updated";
+                        }
+                    });
+                    //-------------------------------
+                    /*Update(request.Key, request.Value);
+                    response.Value = "updated";*/
                     break;
                 case Operation.Remove:
-                    Remove(request.Key);
-                    response.Value = "removed";
+                    //-------------------------------
+                    thread = new Thread(() =>
+                    {
+                        lock (this)
+                        {
+                            Remove(request.Key);
+                            response.Value = "removed";
+                        }
+                    });
+                    //-------------------------------
+                    /*Remove(request.Key);
+                    response.Value = "removed";*/
                     break;
             }
+            //-------------------------------
+            if (thread != null)
+            {
+                thread.Start();
+                thread.Join(); // Espera a thread terminar
+            }
+            //-------------------------------
             return response;
         }
     }

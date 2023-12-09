@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "aMen/7AkEOgne/Fienq/LWFtSWSBiqcQF0MGZr0GsuxW3PVSc+HH0+vWATJiKzY01U32fRig34GHmV2VKE7FtA==",
+  "dgSpecHash": "qhDAv9HurA9zWKXMFO98OrEgQrSPl1Y1MNinTssOoCnJ9vi3Fc3m6VKfDHqISyPIJrtwGd470Z5WEbLDMGKIeA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Miguel Felipe\\Documents\\GitHub\\BancoDeDados-So\\ServerDataBaseSo\\ServerDataBaseSo.csproj",
+  "projectFilePath": "C:\\Users\\Lucas\\Desktop\\PUC\\Sistemas\\Banco de dados\\BancoDeDados-So\\ServerDataBaseSo\\ServerDataBaseSo.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Miguel Felipe\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\Lucas\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
   "logs": []
 }
