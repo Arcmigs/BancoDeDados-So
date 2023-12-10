@@ -1,6 +1,6 @@
 # Banco de Dados Chave-Valor em C#
 
-Este é um projeto de banco de dados chave-valor desenvolvido em C# como parte da disciplina de Sistemas Operacionais.
+Este projeto implementa um banco de dados chave-valor em C# para a disciplina de Sistemas Operacionais.
 
 ## Integrantes do Grupo
 - Cauã Diniz
@@ -8,71 +8,77 @@ Este é um projeto de banco de dados chave-valor desenvolvido em C# como parte d
 - Miguel Felipe
 - Pedro César
 
-## Estrutura do Projeto
-O projeto está organizado em duas partes principais: `DataBaseSo` e `ServerDataBaseSo`. A primeira parte contém a implementação do banco de dados chave-valor e do cliente, enquanto a segunda parte contém a implementação do servidor.
+## Funcionalidades
 
-### `DataBaseSo`
-#### `KeyValueDatabase`
-- **`KeyValueDatabase`**: Classe principal que representa o banco de dados chave-valor.
-  - **Métodos Principais:**
-    - `Insert(int key, string value)`: Insere um par chave-valor no banco de dados.
-    - `Remove(int key)`: Remove um valor associado a uma chave específica no banco de dados.
-    - `Update(int key, string newValue)`: Atualiza o valor associado a uma chave existente no banco de dados.
-    - `Search(int key)`: Pesquisa e retorna o valor associado a uma chave no banco de dados.
-  - **Métodos Adicionais:**
-    - `LoadDataFromDisk()`: Carrega os dados do banco de dados a partir do arquivo.
-    - `SaveDataToDisk()`: Salva os dados do banco de dados em um arquivo.
-    - `HandleRequest(Message request)`: Processa uma solicitação do cliente.
+### KeyValueDatabase
+A classe KeyValueDatabase representa o banco de dados chave-valor e oferece as seguintes funcionalidades:
 
-#### `Message`
-- **`Message`**: Classe que representa uma mensagem usada para comunicação entre cliente e servidor.
-  - **Propriedades:**
-    - `Op`: Operação a ser realizada (Insert, Get, Update, Remove).
-    - `Key`: Chave associada à operação.
-    - `Value`: Valor associado à operação.
+#### Construtor
+O construtor da classe é definido da seguinte forma:
 
-#### `KeyValueRecord`
-- **`KeyValueRecord`**: Classe que representa um registro chave-valor no banco de dados.
-  - **Propriedades:**
-    - `Key`: Chave do registro.
-    - `Value`: Valor associado à chave.
+```csharp
+public KeyValueDatabase(string filePath)
+Ele inicializa uma nova instância do banco de dados, utilizando persistência dos dados.
 
-### `Client`
-- **`Client`**: Aplicativo cliente que interage com o servidor via Named Pipes.
-  - **Comandos suportados:**
-    - `--insert key value`: Insere um objeto no banco de dados.
-    - `--get key`: Obtém um objeto do banco de dados.
-    - `--update key value`: Atualiza um objeto no banco de dados.
-    - `--remove key`: Remove um objeto do banco de dados.
+#### Métodos
 
-### `ServerDataBaseSo`
-#### `KeyValueDatabase`
-- **`KeyValueDatabase`**: Classe que representa o banco de dados chave-valor no servidor.
-  - **Métodos e Propriedades:**
-    - Igual à implementação no cliente.
+##### Inserir
+```csharp
+public void Insert(int key, string value)
+Este método insere um novo par chave-valor no banco de dados. Os parâmetros são a chave do registro e o valor associado à chave.
 
-#### `Message`
-- **`Message`**: Classe que representa uma mensagem usada para comunicação entre cliente e servidor.
-  - Igual à implementação no cliente.
+##### Remover
+```csharp
+public void Remove(int key)
+O método Remove exclui um registro do banco de dados com base na chave fornecida como parâmetro.
 
-#### `KeyValueRecord`
-- **`KeyValueRecord`**: Classe que representa um registro chave-valor no banco de dados.
-  - Igual à implementação no cliente.
+##### Atualizar
+```csharp
+public void Update(int key, string newValue)
+O método Update atualiza o valor associado a uma chave existente no banco de dados. São fornecidos a chave do registro a ser atualizado e o novo valor associado à chave.
 
-### `Server`
-- **`Server`**: Aplicativo servidor que recebe comandos do cliente via Named Pipes e interage com o banco de dados.
-  - **Como usar:**
-    - `Server [caminho_do_banco_de_dados]`
-    - Exemplo: `Server database.txt`
+##### Pesquisar
+```csharp
+public string Search(int key)
+O método Search pesquisa e retorna o valor associado a uma chave no banco de dados. É necessário fornecer a chave do registro a ser pesquisado.
 
-## Como Executar
-1. Compile os projetos `DataBaseSo` e `ServerDataBaseSo`.
-2. Execute o servidor no terminal: `Server [caminho_do_banco_de_dados]`.
-3. Execute o cliente no terminal com os comandos desejados.
+##### SalvarParaArquivo
+```csharp
+public void SaveToDisk()
+Este método salva os dados do banco de dados em um arquivo.
 
-## Observações
+##### CarregarDeArquivo
+```csharp
+public void LoadFromDisk()
+O método LoadFromDisk carrega os dados do banco de dados a partir de um arquivo.
 
-- Certifique-se de fornecer os argumentos necessários para cada comando (chave e valor quando aplicável) após a opção do comando.
-- Mensagens de erro serão exibidas caso ocorra uma operação inválida, como inserir uma chave que já existe ou tentar remover/atualizar/pesquisar uma chave que não existe.
+##### HandleRequest
+```csharp
+public Message HandleRequest(Message request)
+O método HandleRequest lida com solicitações do cliente e retorna uma resposta. O parâmetro request é um objeto Message que representa a solicitação do cliente.
 
----
+## Uso do Programa Cliente
+O programa cliente interage com o banco de dados por meio de comandos. Os comandos suportados incluem:
+
+- `insert <key,value>`
+- `remove <key>`
+- `update <key,new-value>`
+- `search <key>`
+- `quit`
+
+### Exemplo de uso:
+```plaintext
+$ simpledb-client
+insert 1,pedro
+inserted
+insert 2,banana
+inserted
+updated 2,apple
+updated
+search 3
+not found
+search 1
+pedro
+quit
+
+**Observação:** Certifique-se de fornecer os argumentos necessários para cada comando (chave e valor quando aplicável) após a opção do comando. Mensagens de erro serão exibidas caso ocorra uma operação inválida, como inserir uma chave que já existe ou tentar remover/atualizar/pesquisar uma chave que não existe.
