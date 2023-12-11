@@ -171,7 +171,7 @@ namespace ServerDatabaseSo
             if (thread != null)
             {
                 thread.Start();
-                thread.Join();  // Espera a thread terminar
+                thread.Join();  
             }
 
             return response;

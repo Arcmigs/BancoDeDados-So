@@ -1,0 +1,25 @@
+﻿<Properties StartupConfiguration="{3857817B-BD34-4728-A1C5-0E2C811F7015}|Default">
+  <MonoDevelop.Ide.ItemProperties.ServerDataBaseSo PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="KeyValueDatabaseServer.cs">
+    <Files>
+      <File FileName="KeyValueDatabaseServer.cs" Line="181" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ServerDataBaseSo" expanded="True">
+            <Node name="ServerDataBaseSo" expanded="True">
+              <Node name="KeyValueDatabaseServer.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
